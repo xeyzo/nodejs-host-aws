@@ -1,0 +1,17 @@
+{
+  "name": "node-host-aws",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.0",
+    "fs": "^0.0.1-security",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.7"
+  },
+  "scripts": {
+    "start": "nodemon app.js"
+  }
+}
