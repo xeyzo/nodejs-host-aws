@@ -16,17 +16,37 @@ app.get("/", (req,res) => {
 
 app.get('/todos', (req,res)=> {
     fs.readFile('./store/todos.json','utf-8',(err, data)=>{
-        if (err) {
-            return res.send({message:"something went wrong"}).status(500)
-        }
-        
-        const todos = JSON.parse(data);
+        if (!err) {
+            const todos = JSON.parse(data);
+            console.log(todos)
 
-        return res.send({
-            message: "Your data succesfully loaded",
-            data: todos,
-            status: 200
-        }).status(200)
+            return res.send({
+                message: "Your data succesfully loaded",
+                data: todos,
+                status: 200
+            }).status(200)
+        }
+
+        return res.send({message:"Something went wrong"}).status(404)
+    })
+});
+
+app.get('/todos/:id', (req,res)=> {
+    fs.readFile('./store/todos.json','utf-8',(err, data)=>{
+        if (!err) {
+            const todos = JSON.parse(data);
+
+            const filterData = todos.findIndex(data => data.id == req.params.id)
+            console.log(filterData)
+
+            return res.send({
+                message: "Your data succesfully loaded",
+                data: [todos[filterData]],
+                status: 200
+            }).status(200)
+        }
+
+        return res.send({message:"Not found"}).status(404)
     })
 });
 
