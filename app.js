@@ -60,8 +60,8 @@ app.post('/todos', (req, res) => {
         if (!err) {
             const todos = JSON.parse(data);
 
-            const findMaxId = Math.max.apply(Math, todos.map(t => { return t.id }))
-            const generatedId = findMaxId + 1
+            const findMaxId = Math.max.apply(Math, todos.map(t => { return t.id }));
+            const generatedId = findMaxId + 1;
 
             todos.push({
                 id: generatedId,
@@ -80,10 +80,10 @@ app.post('/todos', (req, res) => {
                 message: "Adding new data succesfully",
                 data: req.body,
                 status: 200
-            }).status(200)
+            }).status(200);
         }
 
-        return res.send({ message: "Something went wrong" })
+        return res.send({ message: "Something went wrong" });
     })
 })
 
@@ -98,11 +98,11 @@ app.delete('/todos/:id', (req, res) => {
 
         const todos = JSON.parse(data);
 
-        const findData = todos.findIndex(data => data.id == req.params.id)
+        const findData = todos.findIndex(data => data.id == req.params.id);
 
         if (findData < 0) {
             return res.send({ message: `data id ${req.params.id} not found` }).status(404)
-        }
+        };
 
         const result = todos.filter(item => item.id != req.params.id);
 
@@ -112,16 +112,16 @@ app.delete('/todos/:id', (req, res) => {
             } else {
                 console.log('File has been updated successfully');
             }
-        })
+        });
 
         return res.send({
             message: `data id ${req.params.id} has been deleted`
-        })
-    })
-})
+        });
+    });
+});
 
 
 
 app.listen(port, () => {
     console.log(`your application ready on port http://localhost:${port}`)
-})
+});
