@@ -88,6 +88,7 @@ app.delete('/todos/:id', (req, res) => {
                 message: "Something Went Wrong"
             })
         };
+
         const todos = JSON.parse(data);
 
         const findData = todos.findIndex(data => data.id == req.params.id)
