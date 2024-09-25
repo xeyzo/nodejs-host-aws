@@ -59,7 +59,14 @@ app.post('/todos', (req, res) => {
     fs.readFile(path, 'utf-8', (err, data) => {
         if (!err) {
             const todos = JSON.parse(data);
-            todos.push(req.body);
+
+            const findMaxId = Math.max.apply(Math, todos.map(t => { return t.id }))
+            const generatedId = findMaxId + 1
+
+            todos.push({
+                id: generatedId,
+                title: `${req.body.title} ${generatedId}`
+            });
 
             fs.writeFile(path, JSON.stringify(todos), 'utf8', (err) => {
                 if (err) {
