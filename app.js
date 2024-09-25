@@ -63,22 +63,30 @@ app.post('/todos', (req, res) => {
             const findMaxId = Math.max.apply(Math, todos.map(t => { return t.id }));
             const generatedId = findMaxId + 1;
 
-            todos.push({
-                id: generatedId,
-                title: `${req.body.title} ${generatedId}`
-            });
+            if (!req.body.title) {
+                return res.send({
+                    message: "Title mandatory"
+                })
+            } else {
+                todos.push({
+                    id: generatedId,
+                    title: `${req.body.title} ${generatedId}`
+                });
+    
+                fs.writeFile(path, JSON.stringify(todos), 'utf8', (err) => {
+                    if (err) {
+                        console.error('Error writing file', err);
+                    } else {
+                        console.log('File has been updated successfully');
+                    }
+                });
+            }
 
-            fs.writeFile(path, JSON.stringify(todos), 'utf8', (err) => {
-                if (err) {
-                    console.error('Error writing file', err);
-                } else {
-                    console.log('File has been updated successfully');
-                }
-            });
+            const responseData = {  id: generatedId, title: `${req.body.title} ${generatedId}`}
 
             return res.send({
                 message: "Adding new data succesfully",
-                data: req.body,
+                data: responseData,
                 status: 200
             }).status(200);
         }
