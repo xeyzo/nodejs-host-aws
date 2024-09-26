@@ -1,7 +1,7 @@
 {
   "name": "node-host-aws",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "license": "MIT",
   "type": "module",
   "dependencies": {
@@ -12,6 +12,7 @@
     "nodemon": "^3.1.7"
   },
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "dev": "vercel dev"
   }
 }
